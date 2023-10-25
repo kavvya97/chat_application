@@ -10,10 +10,25 @@
     margin-bottom: 0.5rem;
     img {
         height: 200px;
+        margin-bottom: 0px !important;
     }
+}
+.login-heading {
+    margin-bottom: 1rem;
 }
   
 .input-box {
     width: 30%;
+    .signup-text {
+        margin-top: 1rem;
+        display: block;
+        text-align: center;
+    }
+
+    button.login-button {
+        margin-top: 3rem;
+        width: 100%;
+    }
+
 }
   

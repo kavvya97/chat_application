@@ -6,7 +6,7 @@ import {
     useToast,
 } from '@chakra-ui/react';
 import { FaPaperPlane } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Message } from './message';
 import './homePage.styles.scss';
@@ -23,6 +23,7 @@ const ChatBox: React.FC = () => {
     const [upvotes, setUpvotes] = useState<string[]>([]);
     const [downvotes, setDownvotes] = useState<string[]>([]);
     const navigate = useNavigate();
+    const chatContainerRef = useRef<HTMLDivElement | null>(null);
     const username = sessionStorage.getItem("username");
     const toast = useToast();
 
@@ -42,7 +43,14 @@ const ChatBox: React.FC = () => {
             setDownvotes(responseJson['downvotes']);
         }
         getVotesByUsername();
+       
     }, [username]);
+
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages])
 
     const handleVote = async (messageId: string, action: string) => {
         try {
@@ -81,7 +89,7 @@ const ChatBox: React.FC = () => {
 
     return (
         <>
-            <Box className="chat-container">
+            <Box className="chat-container" ref={chatContainerRef}>
                 {(!messages || messages.length === 0) &&  (
                     <Flex className="empty-chat-prompt">
                         <div>Time to chat!!</div>
@@ -93,6 +101,7 @@ const ChatBox: React.FC = () => {
                         messageId={msg._id}
                         username={msg.username}
                         content={msg.content}
+                        timestamp={msg.timestamp}
                         onVote={handleVote}
                         upvoted={upvotes.includes(msg._id)}
                         downvoted={downvotes.includes(msg._id)}

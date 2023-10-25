@@ -38,6 +38,7 @@
     border-radius: 4px;
     height: 550px;
     overflow-y: auto;
+    transition: 0.5s;
 }
 
 .empty-chat-prompt {
@@ -63,17 +64,54 @@
         }
     }
 }
-
 .message-container {
     margin-top: 4px;
     align-items: center;
     padding: 10px;
 
-    .username {
-        font-weight: bold;
-        margin-right: 2px;
+    &.self {
+        justify-content: flex-end;
+        .message-content {
+            background-color: #5fc4be;
+            box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.1);
+        }
     }
 
+    &.other {
+        .message-content {
+            background-color: #d4ebf2;
+            box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .username {
+        font-weight: bold;
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
+    .timestamp {
+        text-align: right;
+        font-size: 12px;
+    }
+
+    .message-content {
+        border-radius: 20px;
+        padding: 10px 15px; 
+        position: relative; 
+        max-width: 50%;
+        margin: 0 20px;
+
+        > Text {
+            margin-bottom: 5px;
+        }
+        
+        IconButton {
+            height: 15px;
+            width: 15px;
+            padding: 5px;
+            margin-top: 5px;
+        }
+    }
     .neutral-icon-btn {
         background-color: gray.300;
 
@@ -96,5 +134,4 @@
             background-color: rgba(255, 0, 0, 0.5);
         }
     }
-    
 }

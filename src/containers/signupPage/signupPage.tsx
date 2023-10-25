@@ -18,16 +18,18 @@ import { EmailIcon, LockIcon } from '@chakra-ui/icons';
 import './signupPage.styles.scss';
 import { signUpHandler } from '../../utils/auth';
 import { useNavigate } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ChakraLink } from '@chakra-ui/react';
 
 
 const SignupPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('');
     const [password, setPassword] = useState('');
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [formError, setFormError] = useState('');
-    const [emailError, setEmailError] = useState('');
     const navigate = useNavigate();
 
     const handleSignUp = async () => {
@@ -62,6 +64,23 @@ const SignupPage: React.FC = () => {
         setEmail('');
       }
     };
+
+    const validateEmail = (email: string) => {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      if (!emailRegex.test(email)) {
+          setEmailError("Invalid email format");
+      } else {
+          setEmailError("");
+      }
+    }   
+    const validatePassword = (password: string) => {
+      if (password.length <= 5) {
+          setPasswordError("Password should be more than 5 characters");
+      } else {
+          setPasswordError(""); 
+      }
+    }
+  
     return (
         <VStack className="login-container">
       
@@ -69,7 +88,7 @@ const SignupPage: React.FC = () => {
           <img src={`${process.env.PUBLIC_URL}/logo.jpeg`} alt="application logo" />
         </Box>
   
-        <Heading mb={1}>Sign Up</Heading>
+        <Heading className="signup-heading">Sign Up</Heading>
   
         <Box className="input-box">
             <FormControl id="username" isRequired isInvalid={!!usernameError}>
@@ -91,7 +110,7 @@ const SignupPage: React.FC = () => {
                     pointerEvents="none"
                     children={<EmailIcon color="gray.300" />}
                 />
-                <Input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input type="email" placeholder="Email address" value={email} onChange={(e) => {setEmail(e.target.value); validateEmail(e.target.value);}} />
                 </InputGroup>
                 {emailError && <FormErrorMessage>{emailError}</FormErrorMessage>}
             </FormControl>
@@ -103,14 +122,20 @@ const SignupPage: React.FC = () => {
                     pointerEvents="none"
                     children={<LockIcon color="gray.300" />}
                 />
-                <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Input type="password" placeholder="Password" value={password} onChange={(e) => {setPassword(e.target.value); validatePassword(e.target.value);}} />
                 </InputGroup>
                 {passwordError && <FormErrorMessage>{passwordError}</FormErrorMessage>}
             </FormControl>
             {formError && <Text color="red.500" mt={3} textAlign="center">{formError}</Text>}
-            <Button mt={6} width="full" colorScheme="brand" onClick={handleSignUp}>
+            <Button className="signup-button" colorScheme="brand" onClick={handleSignUp}>
             Create Account
             </Button>
+            <Text className="member-text">
+                Already a member?{' '}
+                <ChakraLink className="login-link" as={ReactRouterLink} to='/login'>
+                Login
+                </ChakraLink>
+            </Text>
         </Box>
       </VStack>
     )

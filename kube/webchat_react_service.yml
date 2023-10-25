@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: webchatreact-service
+  name: webchat_react_service
 spec:
   selector:
-    app: webchatreact
+    app: webchat_react
   ports:
     - protocol: TCP
       port: 80

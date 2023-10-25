@@ -58,13 +58,10 @@ const LoginPage: React.FC = () => {
 
     return (
         <VStack className="login-container">
-        
             <Box className="logo-box">
                 <img src={`${process.env.PUBLIC_URL}/logo.jpeg`} alt="application logo" />
             </Box>
-
-            <Heading mb={1}>Login</Heading>
-
+            <Heading className="login-heading">Login</Heading>
             <Box className="input-box">
                 <FormControl id="username" isRequired isInvalid={!!usernameError}>
                     <FormLabel>Username</FormLabel>
@@ -90,11 +87,10 @@ const LoginPage: React.FC = () => {
                     {passwordError && <FormErrorMessage>{passwordError}</FormErrorMessage>}
                 </FormControl>
                 {formError && <Text color="red.500" mt={3} textAlign="center">{formError}</Text>}
-                <Button mt={6} width="full" colorScheme="brand" onClick={handleLogin}>
+                <Button className="login-button" colorScheme='brand' onClick={handleLogin}>
                 Login
                 </Button>
-
-                <Text mt={3} display="block" textAlign="center">
+                <Text className="signup-text">
                     Don't have an account?{' '}
                     <ChakraLink as={ReactRouterLink} to='/signup'>
                     Sign Up

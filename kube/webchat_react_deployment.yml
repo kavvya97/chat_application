@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webchatreact-deployment
+  name: webchat_react_deployment
   labels:
-    app: webchatreact
+    app: webchat_react
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: webchatreact
+      app: webchat_react
   template:
     metadata:
       labels:
-        app: webchatreact
+        app: webchat_react
     spec:
       containers:
-      - name: webchatreact
-        image: webchatreact:latest
+      - name: webchat_react
+        image: webchat_react:latest
         ports:
         - containerPort: 80

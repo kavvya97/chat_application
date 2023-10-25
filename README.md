@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+## NIMBLE ROBOTICS ASSESSMENT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Author**: Kavvya Ramarathnam
 
-## Available Scripts
+### Description
+A React web application that allows users to login/signup/logout with username and password and allow users to chat with other users of the application and upvote/downvote their messages
 
-In the project directory, you can run:
+### Features
+- Sign up a new user/account with a username and a password
+- Login in with an existing username and password
+- After login successfully, the user can send messages and see history messages from other users
+- Users can send messages
+- Users can upvote or downvote other user's message except their own messages
 
-### `npm start`
+### Run the app
+In the project directory, run 
+1. `npm install` to install the necessary requirements
+2. `npm start` to open the app in development mode
+3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4. Run `npm run build` to build app for production to the `build` folder
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Docker Container Deployment
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- In the root directory, There is a `Dockerfile`
+- To build the docker image, Run the below command
+  - `docker build -t webchat_react:latest .` for building the webchat react application
 
-### `npm test`
+- To Run the docker image, use the following commands
+  - `docker run -p 8000:80 webchat_react:latest`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Kubernetes Deployment
+There is a kube folder in the root directory which contains the `webchat_react_deployment.yml` and `webchat_react_service.yml` and they host the deployment files for the webchat react frontend application. Ensure to install minikube for required OS and start the minikube cluster using
+`minikube start`
+Assuming the docker image is already built and available, we can run `build_kube.sh`` to run the required deployments.
 
-### `npm run build`
+### Additional Improvements
+1. Added functionality to logout the user and navigate to login page
+2. Created Form error  to let the user know if the API call has failed
+3. Email and password check to inform user of any invalid email or password
+4. username, email, password checks to ensure that the fields are required and not-empty
+5. link to navigate to signup from login if user does not have login credentials and navigate to login page from signup if user is already a member
+6. Navigation bar at the top of the page to scale the application for adding new features later
+7. Profile icon on navigation bar to provide options of user to logout of the application
+8. Auto-scrolling to the bottom of the messages when user types in a new message
+9. Intuitive UI with speech bubbles to clearly indicate the current user and other users
+10. If users attempt to go to /home page without logging in, they would be redirected/navigated to login page
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### TODO/Can be improved
+1. Hashing the password when sending request from frontend to backend
+2. show the upvote/downvote count in the UI
+3. Maintain a session object when user logs in and automatically logout when the session expires
+4. Make the password field more strong and secure by adding additional checks to ensure that user data is secure

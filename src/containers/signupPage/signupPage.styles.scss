@@ -10,10 +10,30 @@
     margin-bottom: 0.5rem;
     img {
         height: 200px;
+        margin-bottom: 0px !important;
     }
 }
   
+.signup-heading {
+    margin-bottom: 1rem;
+}
+
 .input-box {
     width: 30%;
+    .member-text {
+        margin-top: 3rem;
+        display: block;
+        text-align: center;
+    }
+    
+    button.signup-button {
+        margin-top: 3rem;
+        width: 100%;
+    }
+    
+    text.form-error {
+        color: red.500;
+        margin-top: 3rem;
+        text-align: center;
+    }
 }
-  
