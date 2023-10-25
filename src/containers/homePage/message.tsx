@@ -16,6 +16,7 @@ interface MessageProps {
 }
 
 export const Message: React.FC<MessageProps> = ({ messageId, username, content, onVote, upvoted, downvoted }) => {
+    const currentUser = sessionStorage.getItem("username");
     const getVoteState = (): 'neutral' | 'upvote' | 'downvote' => {
         if (upvoted) {
             return 'upvote';
@@ -41,25 +42,24 @@ export const Message: React.FC<MessageProps> = ({ messageId, username, content, 
     };
 
     return (
-        <Flex mt={4} align="center" borderWidth="1px" borderRadius="md" padding="10px">
-            <Text fontWeight="bold" mr={2}>{username}</Text>
+        <Flex className="message-container">
+            <Text className="username">{username}</Text>
             <Text flex={1}>{content}</Text>
-            <IconButton 
-                aria-label={voteState === 'upvote' ? 'thumbs up' : 'thumbs down'}
-                icon={
-                    voteState === 'neutral' ? <FaRegThumbsUp /> : // <-- Use a different icon or the same for neutral if you prefer
-                    (voteState === 'upvote' ? <FaThumbsUp /> : <FaThumbsDown />)
-                }
-                bg={
-                    voteState === 'neutral' ? 'gray.300' :
-                    (voteState === 'upvote' ? 'green.300' : 'red.300')
-                }
-                _hover={{
-                    bg: voteState === 'neutral' ? 'gray.200' :
-                    (voteState === 'upvote' ? 'green.200' : 'red.200')
-                }}
-                onClick={handleVoteToggle}
-            />
+            {
+                (currentUser !== username) && 
+                <IconButton 
+                    aria-label={voteState === 'upvote' ? 'thumbs up' : 'thumbs down'}
+                    icon={
+                        voteState === 'neutral' ? <FaRegThumbsUp /> :
+                        (voteState === 'upvote' ? <FaThumbsUp /> : <FaThumbsDown />)
+                    }
+                    className={
+                        voteState === 'neutral' ? 'neutral-icon-btn' :
+                        (voteState === 'upvote' ? 'upvote-icon-btn' : 'downvote-icon-btn')
+                    }
+                    onClick={handleVoteToggle}
+                /> 
+            }
         </Flex>
     );
 }
