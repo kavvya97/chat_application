@@ -1,4 +1,4 @@
-## NIMBLE ROBOTICS ASSESSMENT
+## Web Chat React Application
 
 **Author**: Kavvya Ramarathnam
 
